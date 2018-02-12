@@ -279,7 +279,7 @@ int acq_GetDecimationFactor(uint32_t* decimation)
     case RP_DEC_8:     		*decimation = DEC_8;     	break;
     case RP_DEC_64:    		*decimation = DEC_64;    	break;
     case RP_DEC_1024:  		*decimation = DEC_1024;  	break;
-    case RP_DEC_2048:		*decimation = DEC_2048;     break;
+    case RP_DEC_2048:		*decimation = DEC_2048;     	break;
     case RP_DEC_8192:  		*decimation = DEC_8192;  	break;
     case RP_DEC_65536: 		*decimation = DEC_65536; 	break;
     case RP_DEC_131072:		*decimation = DEC_131072;	break;
@@ -323,7 +323,7 @@ int acq_GetSamplingRate(rp_acq_sampling_rate_t* sampling_rate)
     case RP_DEC_8:     		*sampling_rate = RP_SMP_15_625M;  break;
     case RP_DEC_64:    		*sampling_rate = RP_SMP_1_953M;   break;
     case RP_DEC_1024:  		*sampling_rate = RP_SMP_122_070K; break;
-    case RP_DEC_2048:       *sampling_rate = RP_SMP_61_035K;  break;
+    case RP_DEC_2048:       	*sampling_rate = RP_SMP_61_035K;  break;
     case RP_DEC_8192:  		*sampling_rate = RP_SMP_15_258K;  break;
     case RP_DEC_65536: 		*sampling_rate = RP_SMP_1_907K;   break;
     case RP_DEC_131072:		*sampling_rate = RP_SMP_953_67;	  break;	
@@ -345,16 +345,16 @@ int acq_GetSamplingRateHz(float* sampling_rate)
     acq_GetDecimation(&decimation);
 
     switch(decimation){
-        case RP_DEC_1:     	    *sampling_rate = max_rate / 1;      	break;
-        case RP_DEC_8:     	    *sampling_rate = max_rate / 8;       	break;
-        case RP_DEC_64:    	    *sampling_rate = max_rate / 64;    	    break;
-        case RP_DEC_1024:  	    *sampling_rate = max_rate / 1024;     	break;
+        case RP_DEC_1:     	*sampling_rate = max_rate / 1;      	break;
+        case RP_DEC_8:     	*sampling_rate = max_rate / 8;       	break;
+        case RP_DEC_64:    	*sampling_rate = max_rate / 64;    	break;
+        case RP_DEC_1024:       *sampling_rate = max_rate / 1024;     	break;
         case RP_DEC_2048:       *sampling_rate = max_rate / 2048;       break;
-        case RP_DEC_8192:  	    *sampling_rate = max_rate / 8192;     	break;
-        case RP_DEC_65536: 	    *sampling_rate = max_rate / 65536;   	break;
-	    case RP_DEC_131072:	    *sampling_rate = max_rate / 131072;	    break;
-	    case RP_DEC_262144:     *sampling_rate = max_rate / 262144; 	break;
-	    case RP_DEC_524288:     *sampling_rate = max_rate / 524288; 	break;
+        case RP_DEC_8192:       *sampling_rate = max_rate / 8192;     	break;
+        case RP_DEC_65536: 	*sampling_rate = max_rate / 65536;   	break;
+	case RP_DEC_131072:	*sampling_rate = max_rate / 131072;	break;
+	case RP_DEC_262144:     *sampling_rate = max_rate / 262144; 	break;
+	case RP_DEC_524288:     *sampling_rate = max_rate / 524288; 	break;
         case RP_DEC_1048576:    *sampling_rate = max_rate / 1048576;    break;
     }
 
