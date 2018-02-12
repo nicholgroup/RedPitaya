@@ -33,7 +33,7 @@ static const uint32_t DEC_65536 	= 65536;
 static const uint32_t DEC_131072 	= 131072;
 static const uint32_t DEC_262144 	= 262144;
 static const uint32_t DEC_524288 	= 524288;
-static const uint32_t DEC_1048576 	= 1048576;
+static const uint32_t DEC_1048576       = 1048576;
 
 /* @brief Trig. reg. value offset when set to 0 */
 static const int32_t TRIG_DELAY_ZERO_OFFSET = ADC_BUFFER_SIZE/2;
