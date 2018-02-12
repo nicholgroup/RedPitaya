@@ -148,8 +148,8 @@ reg  [ 14-1: 0] adc_a_dat     ;
 reg  [ 14-1: 0] adc_b_dat     ;
 reg  [ 32-1: 0] adc_a_sum     ;
 reg  [ 32-1: 0] adc_b_sum     ;
-reg  [ 17-1: 0] set_dec       ;
-reg  [ 17-1: 0] adc_dec_cnt   ;
+reg  [ 25-1: 0] set_dec       ;
+reg  [ 25-1: 0] adc_dec_cnt   ;
 reg             set_avg_en    ;
 reg             adc_dv        ;
 
@@ -157,30 +157,48 @@ always @(posedge adc_clk_i)
 if (adc_rstn_i == 1'b0) begin
    adc_a_sum   <= 32'h0 ;
    adc_b_sum   <= 32'h0 ;
-   adc_dec_cnt <= 17'h0 ;
+   adc_dec_cnt <= 25'h0 ;
    adc_dv      <=  1'b0 ;
 end else begin
    if ((adc_dec_cnt >= set_dec) || adc_arm_do) begin // start again or arm
-      adc_dec_cnt <= 17'h1                   ;
+      adc_dec_cnt <= 25'h1                   ;
       adc_a_sum   <= $signed(adc_a_filt_out) ;
       adc_b_sum   <= $signed(adc_b_filt_out) ;
    end else begin
-      adc_dec_cnt <= adc_dec_cnt + 17'h1 ;
+      adc_dec_cnt <= adc_dec_cnt + 25'h1 ;
       adc_a_sum   <= $signed(adc_a_sum) + $signed(adc_a_filt_out) ;
       adc_b_sum   <= $signed(adc_b_sum) + $signed(adc_b_filt_out) ;
    end
 
    adc_dv <= (adc_dec_cnt >= set_dec) ;
+   
 
-   case (set_dec & {17{set_avg_en}})
-      17'h0     : begin adc_a_dat <= adc_a_filt_out;            adc_b_dat <= adc_b_filt_out;        end
-      17'h1     : begin adc_a_dat <= adc_a_sum[15+0 :  0];      adc_b_dat <= adc_b_sum[15+0 :  0];  end
-      17'h8     : begin adc_a_dat <= adc_a_sum[15+3 :  3];      adc_b_dat <= adc_b_sum[15+3 :  3];  end
-      17'h40    : begin adc_a_dat <= adc_a_sum[15+6 :  6];      adc_b_dat <= adc_b_sum[15+6 :  6];  end
-      17'h400   : begin adc_a_dat <= adc_a_sum[15+10: 10];      adc_b_dat <= adc_b_sum[15+10: 10];  end
-      17'h2000  : begin adc_a_dat <= adc_a_sum[15+13: 13];      adc_b_dat <= adc_b_sum[15+13: 13];  end
-      17'h10000 : begin adc_a_dat <= adc_a_sum[15+16: 16];      adc_b_dat <= adc_b_sum[15+16: 16];  end
-      default   : begin adc_a_dat <= adc_a_sum[15+0 :  0];      adc_b_dat <= adc_b_sum[15+0 :  0];  end
+//      case (set_dec & {17{set_avg_en}})
+ //        17'h0     : begin adc_a_dat <= adc_a_filt_out;            adc_b_dat <= adc_b_filt_out;        end
+   //      17'h1     : begin adc_a_dat <= adc_a_sum[15+0 :  0];      adc_b_dat <= adc_b_sum[15+0 :  0];  end
+  //       17'h8     : begin adc_a_dat <= adc_a_sum[15+3 :  3];      adc_b_dat <= adc_b_sum[15+3 :  3];  end
+//         17'h40    : begin adc_a_dat <= adc_a_sum[15+6 :  6];      adc_b_dat <= adc_b_sum[15+6 :  6];  end
+  //       17'h400   : begin adc_a_dat <= adc_a_sum[15+10: 10];      adc_b_dat <= adc_b_sum[15+10: 10];  end
+    //     17'h800   : begin adc_a_dat <= adc_a_sum[15+11: 11];      adc_b_dat <= adc_b_sum[15+11: 11];  end//
+//         17'h2000  : begin adc_a_dat <= adc_a_sum[15+13: 13];      adc_b_dat <= adc_b_sum[15+13: 13];  end
+  //       17'h10000 : begin adc_a_dat <= adc_a_sum[15+16: 16];      adc_b_dat <= adc_b_sum[15+16: 16];  end
+    //     default   : begin adc_a_dat <= adc_a_sum[15+0 :  0];      adc_b_dat <= adc_b_sum[15+0 :  0];  end
+//      endcase
+//   end
+
+   case (set_dec & {25{set_avg_en}})
+      25'h0         : begin adc_a_dat <= adc_a_filt_out;            adc_b_dat <= adc_b_filt_out;        end
+      25'h1         : begin adc_a_dat <= adc_a_sum[7+0 :  0];      adc_b_dat <= adc_b_sum[7+0 :  0];  end
+      25'h8         : begin adc_a_dat <= adc_a_sum[7+3 :  3];      adc_b_dat <= adc_b_sum[7+3 :  3];  end
+      25'h40        : begin adc_a_dat <= adc_a_sum[7+6 :  6];      adc_b_dat <= adc_b_sum[7+6 :  6];  end
+      25'h400       : begin adc_a_dat <= adc_a_sum[7+10: 10];      adc_b_dat <= adc_b_sum[7+10: 10];  end
+      25'h2000      : begin adc_a_dat <= adc_a_sum[7+13: 13];      adc_b_dat <= adc_b_sum[7+13: 13];  end
+      25'h10000     : begin adc_a_dat <= adc_a_sum[7+16: 16];      adc_b_dat <= adc_b_sum[7+16: 16];  end
+      25'h20000     : begin adc_a_dat <= adc_a_sum[7+17: 17];      adc_b_dat <= adc_b_sum[7+17: 17];  end
+      25'h40000     : begin adc_a_dat <= adc_a_sum[7+18: 18];      adc_b_dat <= adc_b_sum[7+18: 18];  end
+      25'h80000     : begin adc_a_dat <= adc_a_sum[7+19: 19];      adc_b_dat <= adc_b_sum[7+19: 19];  end
+      25'h100000    : begin adc_a_dat <= adc_a_sum[7+20: 20];      adc_b_dat <= adc_b_sum[7+20: 20];  end
+      default       : begin adc_a_dat <= adc_a_sum[7+0 :  0];      adc_b_dat <= adc_b_sum[7+0 :  0];  end
    endcase
 end
 
@@ -690,7 +708,7 @@ if (adc_rstn_i == 1'b0) begin
    set_a_tresh   <=  14'd5000   ;
    set_b_tresh   <= -14'd5000   ;
    set_dly       <=  32'd0      ;
-   set_dec       <=  17'd1      ;
+   set_dec       <=  25'd1      ;
    set_a_hyst    <=  14'd20     ;
    set_b_hyst    <=  14'd20     ;
    set_avg_en    <=   1'b1      ;
@@ -712,7 +730,7 @@ end else begin
       if (sys_addr[19:0]==20'h08)   set_a_tresh   <= sys_wdata[14-1:0] ;
       if (sys_addr[19:0]==20'h0C)   set_b_tresh   <= sys_wdata[14-1:0] ;
       if (sys_addr[19:0]==20'h10)   set_dly       <= sys_wdata[32-1:0] ;
-      if (sys_addr[19:0]==20'h14)   set_dec       <= sys_wdata[17-1:0] ;
+      if (sys_addr[19:0]==20'h14)   set_dec       <= sys_wdata[25-1:0] ;
       if (sys_addr[19:0]==20'h20)   set_a_hyst    <= sys_wdata[14-1:0] ;
       if (sys_addr[19:0]==20'h24)   set_b_hyst    <= sys_wdata[14-1:0] ;
       if (sys_addr[19:0]==20'h28)   set_avg_en    <= sys_wdata[     0] ;
@@ -761,7 +779,7 @@ end else begin
      20'h00008 : begin sys_ack <= sys_en;          sys_rdata <= {{32-14{1'b0}}, set_a_tresh}        ; end
      20'h0000C : begin sys_ack <= sys_en;          sys_rdata <= {{32-14{1'b0}}, set_b_tresh}        ; end
      20'h00010 : begin sys_ack <= sys_en;          sys_rdata <= {               set_dly}            ; end
-     20'h00014 : begin sys_ack <= sys_en;          sys_rdata <= {{32-17{1'b0}}, set_dec}            ; end
+     20'h00014 : begin sys_ack <= sys_en;          sys_rdata <= {{32-25{1'b0}}, set_dec}            ; end
 
      20'h00018 : begin sys_ack <= sys_en;          sys_rdata <= {{32-RSZ{1'b0}}, adc_wp_cur}        ; end
      20'h0001C : begin sys_ack <= sys_en;          sys_rdata <= {{32-RSZ{1'b0}}, adc_wp_trig}       ; end
