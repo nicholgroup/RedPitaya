@@ -23,12 +23,17 @@
 
 
 // Decimation constants
-static const uint32_t DEC_1     = 1;
-static const uint32_t DEC_8     = 8;
-static const uint32_t DEC_64    = 64;
-static const uint32_t DEC_1024  = 1024;
-static const uint32_t DEC_8192  = 8192;
-static const uint32_t DEC_65536 = 65536;
+static const uint32_t DEC_1     	= 1;
+static const uint32_t DEC_8     	= 8;
+static const uint32_t DEC_64    	= 64;
+static const uint32_t DEC_1024 		= 1024;
+static const uint32_t DEC_2048		= 2048;
+static const uint32_t DEC_8192 		= 8192;
+static const uint32_t DEC_65536 	= 65536;
+static const uint32_t DEC_131072 	= 131072;
+static const uint32_t DEC_262144 	= 262144;
+static const uint32_t DEC_524288 	= 524288;
+static const uint32_t DEC_1048576 	= 1048576;
 
 /* @brief Trig. reg. value offset when set to 0 */
 static const int32_t TRIG_DELAY_ZERO_OFFSET = ADC_BUFFER_SIZE/2;
@@ -218,12 +223,17 @@ int acq_SetDecimation(rp_acq_decimation_t decimation)
     }
 
     switch (decimation) {
-    case RP_DEC_1:     osc_SetDecimation(DEC_1);     break;
-    case RP_DEC_8:     osc_SetDecimation(DEC_8);     break;
-    case RP_DEC_64:    osc_SetDecimation(DEC_64);    break;
-    case RP_DEC_1024:  osc_SetDecimation(DEC_1024);  break;
-    case RP_DEC_8192:  osc_SetDecimation(DEC_8192);  break;
-    case RP_DEC_65536: osc_SetDecimation(DEC_65536); break;
+    case RP_DEC_1:     		osc_SetDecimation(DEC_1);     	break;
+    case RP_DEC_8:     		osc_SetDecimation(DEC_8);     	break;
+    case RP_DEC_64:    		osc_SetDecimation(DEC_64);    	break;
+    case RP_DEC_1024:  		osc_SetDecimation(DEC_1024);  	break;
+    case RP_DEC_2048:		osc_SetDecimation(DEC_2048);    break;
+    case RP_DEC_8192:  		osc_SetDecimation(DEC_8192);  	break;
+    case RP_DEC_65536: 		osc_SetDecimation(DEC_65536); 	break;
+    case RP_DEC_131072: 	osc_SetDecimation(DEC_131072);	break;
+    case RP_DEC_262144: 	osc_SetDecimation(DEC_262144);	break;
+    case RP_DEC_524288: 	osc_SetDecimation(DEC_524288);  break;
+    case RP_DEC_1048576:	osc_SetDecimation(DEC_1048576); break;
     default:
         return RP_EOOR;
     }
@@ -241,12 +251,17 @@ int acq_GetDecimation(rp_acq_decimation_t* decimation)
     uint32_t decimationVal;
     osc_GetDecimation(&decimationVal);
 
-    if      (decimationVal == DEC_1)      *decimation = RP_DEC_1;
-    else if (decimationVal == DEC_8)      *decimation = RP_DEC_8;
-    else if (decimationVal == DEC_64)     *decimation = RP_DEC_64;
-    else if (decimationVal == DEC_1024)   *decimation = RP_DEC_1024;
-    else if (decimationVal == DEC_8192)   *decimation = RP_DEC_8192;
-    else if (decimationVal == DEC_65536)  *decimation = RP_DEC_65536;
+    if      (decimationVal == DEC_1)      	*decimation = RP_DEC_1;
+    else if (decimationVal == DEC_8)      	*decimation = RP_DEC_8;
+    else if (decimationVal == DEC_64)     	*decimation = RP_DEC_64;
+    else if (decimationVal == DEC_1024)   	*decimation = RP_DEC_1024;
+    else if (decimationVal == DEC_2048)		*decimation = RP_DEC_2048;
+    else if (decimationVal == DEC_8192)   	*decimation = RP_DEC_8192;
+    else if (decimationVal == DEC_65536)  	*decimation = RP_DEC_65536;
+    else if (decimationVal == DEC_131072) 	*decimation = RP_DEC_131072;
+    else if (decimationVal == DEC_262144) 	*decimation = RP_DEC_262144;
+    else if (decimationVal == DEC_524288) 	*decimation = RP_DEC_524288;
+    else if (decimationVal == DEC_1048576)	*decimation = RP_DEC_1048576;
     else {
         return RP_EOOR;
     }
@@ -260,12 +275,17 @@ int acq_GetDecimationFactor(uint32_t* decimation)
     acq_GetDecimation(&decimationVal);
 
     switch (decimationVal) {
-    case RP_DEC_1:     *decimation = DEC_1;     break;
-    case RP_DEC_8:     *decimation = DEC_8;     break;
-    case RP_DEC_64:    *decimation = DEC_64;    break;
-    case RP_DEC_1024:  *decimation = DEC_1024;  break;
-    case RP_DEC_8192:  *decimation = DEC_8192;  break;
-    case RP_DEC_65536: *decimation = DEC_65536; break;
+    case RP_DEC_1:     		*decimation = DEC_1;     	break;
+    case RP_DEC_8:     		*decimation = DEC_8;     	break;
+    case RP_DEC_64:    		*decimation = DEC_64;    	break;
+    case RP_DEC_1024:  		*decimation = DEC_1024;  	break;
+    case RP_DEC_2048:		*decimation = DEC_2048;     break;
+    case RP_DEC_8192:  		*decimation = DEC_8192;  	break;
+    case RP_DEC_65536: 		*decimation = DEC_65536; 	break;
+    case RP_DEC_131072:		*decimation = DEC_131072;	break;
+    case RP_DEC_262144: 	*decimation = DEC_262144;	break;
+    case RP_DEC_524288: 	*decimation = DEC_524288;	break;
+    case RP_DEC_1048576:	*decimation = DEC_1048576;	break;
     default:
         return RP_EOOR;
     }
@@ -281,8 +301,13 @@ int acq_SetSamplingRate(rp_acq_sampling_rate_t sampling_rate)
     case RP_SMP_15_625M:   return acq_SetDecimation(RP_DEC_8);
     case RP_SMP_1_953M:    return acq_SetDecimation(RP_DEC_64);
     case RP_SMP_122_070K:  return acq_SetDecimation(RP_DEC_1024);
+    case RP_SMP_61_035K:   return acq_SetDecimation(RP_DEC_2048);
     case RP_SMP_15_258K:   return acq_SetDecimation(RP_DEC_8192);
     case RP_SMP_1_907K:    return acq_SetDecimation(RP_DEC_65536);
+    case RP_SMP_953_67:    return acq_SetDecimation(RP_DEC_131072);
+    case RP_SMP_476_83:    return acq_SetDecimation(RP_DEC_262144);
+    case RP_SMP_238_4:     return acq_SetDecimation(RP_DEC_524288);
+    case RP_SMP_119_2:     return acq_SetDecimation(RP_DEC_1048576);
     default:
         return RP_EOOR;
     }
@@ -294,12 +319,17 @@ int acq_GetSamplingRate(rp_acq_sampling_rate_t* sampling_rate)
     acq_GetDecimation(&decimation);
 
     switch (decimation) {
-    case RP_DEC_1:     *sampling_rate = RP_SMP_125M;     break;
-    case RP_DEC_8:     *sampling_rate = RP_SMP_15_625M;  break;
-    case RP_DEC_64:    *sampling_rate = RP_SMP_1_953M;   break;
-    case RP_DEC_1024:  *sampling_rate = RP_SMP_122_070K; break;
-    case RP_DEC_8192:  *sampling_rate = RP_SMP_15_258K;  break;
-    case RP_DEC_65536: *sampling_rate = RP_SMP_1_907K;   break;
+    case RP_DEC_1:     		*sampling_rate = RP_SMP_125M;     break;
+    case RP_DEC_8:     		*sampling_rate = RP_SMP_15_625M;  break;
+    case RP_DEC_64:    		*sampling_rate = RP_SMP_1_953M;   break;
+    case RP_DEC_1024:  		*sampling_rate = RP_SMP_122_070K; break;
+    case RP_DEC_2048:       *sampling_rate = RP_SMP_61_035K;  break;
+    case RP_DEC_8192:  		*sampling_rate = RP_SMP_15_258K;  break;
+    case RP_DEC_65536: 		*sampling_rate = RP_SMP_1_907K;   break;
+    case RP_DEC_131072:		*sampling_rate = RP_SMP_953_67;	  break;	
+    case RP_DEC_262144: 	*sampling_rate = RP_SMP_476_83;   break;	
+    case RP_DEC_524288: 	*sampling_rate = RP_SMP_238_4;    break;	
+    case RP_DEC_1048576:	*sampling_rate = RP_SMP_119_2;    break;	
     default:
         return RP_EOOR;
     }
@@ -315,12 +345,17 @@ int acq_GetSamplingRateHz(float* sampling_rate)
     acq_GetDecimation(&decimation);
 
     switch(decimation){
-        case RP_DEC_1:     *sampling_rate = max_rate / 1;     break;
-        case RP_DEC_8:     *sampling_rate = max_rate / 8;     break;
-        case RP_DEC_64:    *sampling_rate = max_rate / 64;    break;
-        case RP_DEC_1024:  *sampling_rate = max_rate / 1024;  break;
-        case RP_DEC_8192:  *sampling_rate = max_rate / 8192;  break;
-        case RP_DEC_65536: *sampling_rate = max_rate / 65536; break;
+        case RP_DEC_1:     	    *sampling_rate = max_rate / 1;      	break;
+        case RP_DEC_8:     	    *sampling_rate = max_rate / 8;       	break;
+        case RP_DEC_64:    	    *sampling_rate = max_rate / 64;    	    break;
+        case RP_DEC_1024:  	    *sampling_rate = max_rate / 1024;     	break;
+        case RP_DEC_2048:       *sampling_rate = max_rate / 2048;       break;
+        case RP_DEC_8192:  	    *sampling_rate = max_rate / 8192;     	break;
+        case RP_DEC_65536: 	    *sampling_rate = max_rate / 65536;   	break;
+	    case RP_DEC_131072:	    *sampling_rate = max_rate / 131072;	    break;
+	    case RP_DEC_262144:     *sampling_rate = max_rate / 262144; 	break;
+	    case RP_DEC_524288:     *sampling_rate = max_rate / 524288; 	break;
+        case RP_DEC_1048576:    *sampling_rate = max_rate / 1048576;    break;
     }
 
     return RP_OK;
